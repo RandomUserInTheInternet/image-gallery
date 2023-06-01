@@ -10,7 +10,17 @@
   </header>
 
   <main>
-    <section id="upload">
+    <section id="login">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" id="emailInput" placeholder="Email" required>
+        <input type="password" id="passwordInput" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <section id="upload" style="display: none;">
+      <h2>Upload Image</h2>
       <form id="imageForm" enctype="multipart/form-data">
         <input type="file" id="imageInput" accept="image/*" required>
         <button type="submit">Upload Image</button>
@@ -23,5 +33,41 @@
   </footer>
 
   <script src="admin.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      var email = document.getElementById('emailInput').value;
+      var password = document.getElementById('passwordInput').value;
+
+      // Authenticate user with Netlify Identity
+      netlifyIdentity.authenticate({ email, password }, function(err, user) {
+        if (err) {
+          console.error(err);
+          alert('Login failed. Please try again.');
+        } else {
+          console.log('Logged in:', user);
+          showUploadSection();
+        }
+      });
+    });
+
+    function showUploadSection() {
+      document.getElementById('upload').style.display = 'block';
+      document.getElementById('login').style.display = 'none';
+    }
+
+    netlifyIdentity.on('init', function(user) {
+      if (user) {
+        showUploadSection();
+      }
+    });
+
+    netlifyIdentity.on('logout', function() {
+      document.getElementById('upload').style.display = 'none';
+      document.getElementById('login').style.display = 'block';
+    });
+  </script>
 </body>
 </html>
