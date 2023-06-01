@@ -52,7 +52,7 @@
     function showUploadSection() {
       document.getElementById('upload').style.display = 'block';
       document.getElementById('login').style.display = 'none';
-      window.location.href = 'admin.html'; // Redirect to admin page
+      window.location.href = 'index.html'; // Redirect to admin page
     }
 
     netlifyIdentity.on('init', function(user) {
@@ -64,7 +64,7 @@
     netlifyIdentity.on('logout', function() {
       document.getElementById('upload').style.display = 'none';
       document.getElementById('login').style.display = 'block';
-      window.location.href = 'index.html'; // Redirect to gallery page
+      window.location.href = 'admin.html'; // Redirect to gallery page
     });
   </script>
 </body>
