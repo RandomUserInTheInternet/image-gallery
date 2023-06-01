@@ -1,0 +1,10 @@
+{
+"dependencies": {
+    "dotenv": "^16.1.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+"scripts": {
+  "build": "mkdir -p build && cp -r image-gallery/* build"
+}
+}
